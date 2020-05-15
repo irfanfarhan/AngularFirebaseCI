@@ -17,35 +17,35 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit() {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      map(() => {
-        let child = this.activatedRoute.firstChild;
-        this.route = {
-          parentRoute: this.activatedRoute.firstChild.snapshot,
-          childRoute: null
-        };
-        while (child) {
-          if (child.firstChild) {
-            child = child.firstChild;
-          } else if (child.snapshot.data) {
-            this.route.childRoute = child.snapshot.data;
-            return this.route;
-          } else {
-            return null;
-          }
-        }
-        return null;
-      })
-    ).subscribe((routes: any) => {
-      if (routes) {
-        const parentRoute = routes.parentRoute.data;
-        const queryParams = routes.parentRoute.queryParams;
-        const childRoute = routes.childRoute;
-        this.titleService.setTitle((parentRoute.title + ' | ' + childRoute.headerTitle));
-        this.appendAQueryParam(queryParams);
-      }
-    });
+    // this.router.events.pipe(
+    //   filter(event => event instanceof NavigationEnd),
+    //   map(() => {
+    //     let child = this.activatedRoute.firstChild;
+    //     this.route = {
+    //       parentRoute: this.activatedRoute.firstChild.snapshot,
+    //       childRoute: null
+    //     };
+    //     while (child) {
+    //       if (child.firstChild) {
+    //         child = child.firstChild;
+    //       } else if (child.snapshot.data) {
+    //         this.route.childRoute = child.snapshot.data;
+    //         return this.route;
+    //       } else {
+    //         return null;
+    //       }
+    //     }
+    //     return null;
+    //   })
+    // ).subscribe((routes: any) => {
+    //   if (routes) {
+    //     const parentRoute = routes.parentRoute.data;
+    //     const queryParams = routes.parentRoute.queryParams;
+    //     const childRoute = routes.childRoute;
+    //     this.titleService.setTitle((parentRoute.title + ' | ' + childRoute.headerTitle));
+    //     this.appendAQueryParam(queryParams);
+    //   }
+    // });
   }
 
   appendAQueryParam(queryParams: any) {
