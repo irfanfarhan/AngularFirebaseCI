@@ -5,7 +5,11 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(appRoutes, { scrollPositionRestoration: 'enabled' })
+  ],
+  exports: [
+    RouterModule
+  ]
 })
 export class AppRoutingModule { }

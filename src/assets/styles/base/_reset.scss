@@ -1,0 +1,32 @@
+.padding-none {
+    @include space(padding, left, 0 !important);
+    @include space(padding, right, 0 !important);
+}
+
+.margin-none {
+    @include space(margin, all, 0 !important);
+}
+
+.margin-bottom-none {
+    @include space(margin, top, 0 !important);
+}
+
+.padding-left-none {
+    @include space(padding, left, 0 !important);
+}
+
+.padding-right-none {
+    @include space(padding, right, 0 !important);
+}
+
+.padding-bottom-none {
+    @include space (padding, bottom, 0 !important);
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.no-wrap {
+    white-space: nowrap !important;
+}

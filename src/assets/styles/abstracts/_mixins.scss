@@ -1,0 +1,582 @@
+@mixin opacity($opacity) {
+    opacity: $opacity;
+    -o-opacity: $opacity;
+    -ms-opacity: $opacity;
+    -moz-opacity: $opacity;
+    -webkit-opacity: $opacity;
+    filter: alpha(opacity=#{$opacity * 100});
+}
+
+@mixin box-shadow($shadow...) {
+    box-shadow: $shadow;
+    -o-box-shadow: $shadow;
+    -ms-box-shadow: $shadow;
+    -moz-box-shadow: $shadow;
+    -webkit-box-shadow: $shadow;
+}
+
+@mixin border-radius($border-radius) {
+    border-radius: $border-radius;
+    -o-border-radius: $border-radius;
+    -ms-border-radius: $border-radius;
+    -moz-border-radius: $border-radius;
+    -webkit-border-radius: $border-radius;
+}
+
+@mixin transition($transition...) {
+    transition: $transition;
+    -o-transition: $transition;
+    -ms-transition: $transition;
+    -moz-transition: $transition;
+    -webkit-transition: $transition;
+}
+
+@mixin box-sizing($border-sizing) {
+    box-sizing: $border-sizing;
+    -o-box-sizing: $border-sizing;
+    -ms-box-sizing: $border-sizing;
+    -moz-box-sizing: $border-sizing;
+    -webkit-box-sizing: $border-sizing;
+}
+
+@mixin text-shadow($text-shadow...) {
+    text-shadow: $text-shadow;
+    -o-text-shadow: $text-shadow;
+    -ms-text-shadow: $text-shadow;
+    -moz-text-shadow: $text-shadow;
+    -webkit-text-shadow: $text-shadow;
+}
+
+@mixin respond-to($media) {
+    @media #{$media} {
+        @content;
+    }
+}
+
+@mixin overflow-ellipsis() {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin bubble-style($color) {
+    background-color: $color;
+    border-color: darken($color, $darken-amount);
+    &:before,
+    &:after {
+        background-color: $color;
+        border-color: darken($color, $darken-amount);
+    }
+}
+
+@mixin calc($property, $expression) {
+    #{$property}: -moz-calc(#{$expression});
+    #{$property}: -webkit-calc(#{$expression});
+    #{$property}: calc(#{$expression});
+}
+
+//Padding mixin
+@mixin padding($top: false, $right: false, $bottom: false, $left: false) {
+    @if $top {
+        padding-top: $top;
+    }
+    @if $right {
+        padding-right: $right;
+    }
+    @if $bottom {
+        padding-bottom: $bottom;
+    }
+    @if $left {
+        padding-left: $left;
+    }
+}
+
+//Margin mixin
+@mixin margin($top: false, $right: false, $bottom: false, $left: false) {
+    @if $top {
+        margin-top: $top;
+    }
+    @if $right {
+        margin-right: $right;
+    }
+    @if $bottom {
+        margin-bottom: $bottom;
+    }
+    @if $left {
+        margin-left: $left;
+    }
+}
+
+@mixin space($type: margin, $direction: all, $amount: $medium) {
+    @if $type==padding {
+        @if $direction==all {
+            padding: $amount;
+        }
+        @else if $direction==top {
+            padding-top: $amount;
+        }
+        @else if $direction==left {
+            padding-left: $amount;
+        }
+        @else if $direction==right {
+            padding-right: $amount;
+        }
+        @else {
+            padding-bottom: $amount;
+        }
+    }
+    @else {
+        @if $direction==all {
+            margin: $amount;
+        }
+        @else if $direction==top {
+            margin-top: $amount;
+        }
+        @else if $direction==left {
+            margin-left: $amount;
+        }
+        @else if $direction==right {
+            margin-right: $amount;
+        }
+        @else {
+            margin-bottom: $amount;
+        }
+    }
+}
+
+@mixin font-size($size: false, $color: false, $weight: false, $lh: false) {
+    @if $size {
+        font-size: $size;
+        font-size: calculateRem($size);
+    }
+    @if $color {
+        color: $color;
+    }
+    @if $weight {
+        font-weight: $weight;
+    }
+    @if $lh {
+        line-height: $lh;
+    }
+}
+
+@mixin badge($toast-color, $background-color: false, $min-width: false, $border-radius: false) {
+    border: 1px;
+    border-style: solid;
+    border-color: $toast-color;
+    display: inline-block;
+    @include padding(0.5em, 0.7em, 0.5em, 0.7em);
+    @include font-size($font-size-small-1, $toast-color, $font-bolder, 1);
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25em;
+    @if $background-color {
+        background-color: $background-color;
+        border-color: $background-color;
+    }
+    @if $min-width {
+        min-width: $min-width;
+    }
+    @if $border-radius {
+        border-radius: $border-radius;
+    }
+}
+
+@mixin circle($toast-color, $isRect: false) {
+    &:before {
+        content: "";
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        @if ($isRect==false) {
+            -moz-border-radius: 7.5px;
+            -webkit-border-radius: 7.5px;
+            border-radius: 7.5px;
+        }
+        border: 1px;
+        @include space(margin, right, 5px);
+        background-color: $toast-color;
+        border-color: lighten($toast-color, 12%);
+    }
+}
+
+@mixin select-box($img-size: false) {
+    cursor: pointer;
+    .ent-card {
+        min-width: $xxlarge !important;
+        @if ($img-size==false) {
+            &:hover {
+                background: $hover-color !important;
+            }
+        }
+    }
+    @if $img-size {
+        .perview-icon {
+            img {
+                width: $img-size;
+                height: $img-size;
+            }
+        }
+        .label-name {
+            @include font-size($font-size-small-2);
+            @include space(margin, left, $xs + 5px);
+        }
+    }
+    @else {
+        @include space(margin, top, $xs);
+    }
+    .selected-box-items {
+        .ent-card {
+            cursor: pointer;
+            @include space(margin, bottom, 0px);
+        }
+    }
+    &.active {
+        .ent-card {
+            border: 1px solid !important;
+            border-color: $theme-color !important;
+            &::before {
+                background: url("../../assets/images/icons/checked.png") no-repeat;
+                width: 30px;
+                height: 30px;
+                float: right;
+                @include margin(-27px,
+                -34px,
+                0px,
+                0px);
+            }
+        }
+    }
+    .ent-label {
+        font-weight: $font-bold;
+        color: $text-input-color;
+        @include space(margin,
+        top,
+        $xs);
+        @if ($img-size==false) {
+            text-align: center;
+        }
+    }
+}
+
+@mixin detail-box($toast-color,
+$inversed: false) {
+    text-align: center;
+    .number {
+        font-weight: $font-bold;
+        @if $inversed {
+            @include font-size($font-size-large-2 - 10px,
+            $toast-color,
+            false,
+            47px);
+        }
+        @else {
+            @include font-size($font-size-large-1 - 3px,
+            $toast-color);
+            @include space(padding,
+            bottom,
+            $xxs+3px);
+        }
+    }
+    .description {
+        display: inline-block;
+        @include font-size($font-size-small-2);
+        @if $inversed {
+            color: $black-color;
+            text-transform: uppercase;
+        }
+        @else {
+            color: $black-color;
+            @include space(padding,
+            bottom,
+            $xxs+3px);
+            font-weight: $font-bold;
+        }
+    }
+}
+
+@mixin pseudo($pos: false,
+$top: false,
+$right: false,
+$left: false,
+$bottom: false,
+$z-indexes: false) {
+    @if $pos {
+        position: $pos;
+    }
+    @if $top {
+        top: $top;
+    }
+    @if $right {
+        right: $right;
+    }
+    @if $left {
+        left: $left;
+    }
+    @if $bottom {
+        bottom: $bottom;
+    }
+    @if $z-indexes {
+        z-index: $z-indexes;
+    }
+}
+
+@mixin img-replace($image,
+$width,
+$height,
+$position: center,
+$repeat: no-repeat) {
+    background: url($image) $repeat $position;
+    background-size: $width $height;
+}
+
+@mixin word-wrap() {
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-all;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+}
+
+@mixin config-button-outline($color) {
+    @if type-of($color)=="color" {
+        button {
+            border: 1px solid $color !important;
+            background: $white-color !important;
+            @include font-size($font-size-medium,
+            $color !important,
+            $font-bold !important);
+        }
+    }
+}
+
+@mixin config-modal($prefix,
+$configs...) {
+    @each $i in $configs {
+        .#{$prefix}#{nth($i, 1)} {
+            .modal-dialog {
+                @if type-of(nth($i, 2))==number {
+                    @include calc("width",
+                    nth($i, 2));
+                }
+                @else {
+                    width: nth($i, 2);
+                }
+            }
+        }
+    }
+}
+
+@mixin status-style($color,
+$configs...) {
+    @each $i in $configs {
+        .circle-#{nth($i, 1)} {
+            @include circle($color,
+            false);
+        }
+        .rect-#{nth($i, 1)} {
+            @include circle($color,
+            true);
+        }
+    }
+}
+
+@mixin firefox-browser-style() {
+    @at-root {
+        @supports (-moz-appearance: none) {
+            & {
+                @content;
+            }
+        }
+    }
+}
+
+@mixin ie-browser-style() {
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        // IE 10+
+        @content;
+    }
+}
+
+@mixin ellipsis($max-width: false) {
+    display: inline-block;
+    @if $max-width {
+        max-width: $max-width;
+    }
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin config-flex-width($prefix,
+$width...) {
+    @each $i in $width {
+        .#{$prefix}#{nth($i, 1)} {
+            width: nth($i, 2);
+            padding-left: nth($i, 3);
+            padding-right: nth($i, 4);
+        }
+    }
+}
+
+@mixin multiLineEllipsis($lineHeight: 1.2em,
+$lineCount: 1,
+$bgColor: $white-color) {
+    overflow: hidden;
+    position: relative;
+    line-height: $lineHeight;
+    max-height: $lineHeight * $lineCount;
+    margin-right: -1em;
+    padding-right: 1em;
+    &:before {
+        content: "...";
+        position: absolute;
+        right: 1px;
+        bottom: 0;
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        right: -2px;
+        width: 1em;
+        height: 1em;
+        margin-top: 0.2em;
+        background: $bgColor;
+    }
+}
+
+@mixin config-skeleton-paragraph($prefix,
+$configs...) {
+    @each $i in $configs {
+        .#{$prefix}#{nth($i, 1)} {
+            .ent-skeleton {
+                width: nth($i, 2) !important;
+            }
+        }
+    }
+}
+
+@mixin config-skeleton-avatar($prefix,
+$configs...) {
+    @each $i in $configs {
+        .#{$prefix}#{nth($i, 1)} {
+            .ent-skeleton {
+                .skeleton-avatar {
+                    @if length(nth($i, 2))>1 {
+                        @include calc("width",
+                        nth(nth($i, 2), 1));
+                        @include calc("height",
+                        nth(nth($i, 2), 2));
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin config-button($prefix,
+$configs...) {
+    @each $i in $configs {
+        .#{$prefix}#{nth($i, 1)} {
+            button {
+                @if length(nth($i, 2))>1 {
+                    // @include calc("width",
+                    // nth(nth($i, 2), 1));
+                    // @include calc("height",
+                    // nth(nth($i, 2), 2));
+                    width: nth(nth($i, 2), 1);
+                    height: nth(nth($i, 2), 2);
+                }
+                @if type-of(nth($i, 2))=="color" {
+                    border: 1px solid darken(nth($i, 2), 10%) !important;
+                    background: nth($i, 2) !important;
+                    color: $white-color !important;
+                }
+            }
+        }
+        @if nth($i,
+        1)=="default" {
+            .#{$prefix}outline {
+                @include config-button-outline(nth($i, 2));
+            }
+        }
+        @else {
+            .#{$prefix}#{nth($i, 1)}-outline {
+                @include config-button-outline(nth($i, 2));
+            }
+        }
+    }
+}
+
+@mixin config-skeleton-rect($prefix,
+$configs...) {
+    @each $i in $configs {
+        .#{$prefix}#{nth($i, 1)} {
+            .ent-skeleton {
+                .rect {
+                    @if length(nth($i, 2))>1 {
+                        @include calc("width",
+                        nth(nth($i, 2), 1));
+                        @include calc("height",
+                        nth(nth($i, 2), 2));
+                    }
+                }
+            }
+        }
+    }
+}
+
+@mixin status-circle($status-color: false) {
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    @include pseudo(relative,
+    false,
+    false,
+    false,
+    false,
+    false);
+    @include space(padding,
+    all,
+    5px);
+    @include margin(0,
+    10px,
+    0,
+    10px);
+    border-radius: 10px;
+    @if $status-color {
+        background-color: $status-color;
+        border-color: $status-color;
+    }
+}
+
+@mixin config-scroll-modal($prefix,
+$configs...) {
+    @each $i in $configs {
+        .#{$prefix}#{nth($i, 1)} {
+            max-height: nth($i, 2) !important;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+    }
+}
+
+@mixin config-table-fixed-header($prefix, $configs...) {
+    @each $i in $configs {
+        .#{$prefix}#{nth($i, 1)} {
+            overflow-y: auto; 
+            max-height: nth($i, 2);
+            table {
+                border-collapse: collapse; 
+                width: 100%;
+                thead th {
+                    position: sticky; 
+                    top: 0;
+                    background-color: $list-header-color;
+                }
+            }
+        }
+    }
+}
