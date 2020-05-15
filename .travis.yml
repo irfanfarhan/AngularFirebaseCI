@@ -13,3 +13,6 @@ deploy:
   skip_cleanup: true
   provider: firebase
   token: $FIREBASE_TOKEN
+  local_dir: dist/AngularFirebaseCI
+  on:
+    branch: master
