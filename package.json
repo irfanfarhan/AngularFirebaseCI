@@ -4,7 +4,7 @@
     "license": "UNLICENSED",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve --aot --ssl true --port 4200 -o",
+        "start": "ng serve --aot --ssl true --port 4100 -o",
         "build": "ng build --prod --aot --base-href",
         "hostBuild": "ng serve --host 0.0.0.0 --disable-host-check",
         "test": "ng test",
